@@ -11,9 +11,12 @@ class ImgToPDF:
     @staticmethod
     def create_pdf(name):
         """ Create new pdf file """
-        with open(rf'{THIS_FOLDER}\..\output\{name}.pdf', 'w') as pdf:
-            images = os.listdir(path=rf'{THIS_FOLDER}\..\img')
-            for i, item in enumerate(images):
-                image = fitz.open(rf'{THIS_FOLDER}\..\img\{images[i]}')
-                image.save(rf'{THIS_FOLDER}\..\output\{name}.pdf')
-            print(images)
+        pdf = fitz.open()
+        images = os.listdir(path=rf'{THIS_FOLDER}\..\img')
+        for i, item in enumerate(images):
+            pdf.insertPage(i)
+            page = pdf.loadPage(i)
+            rect = fitz.Rect(0, 0, 2480, 3508)
+            img = fitz.Pixmap(rf'{THIS_FOLDER}\..\img\{images[i]}')
+            page.insertImage(rect, pixmap=img)
+        pdf.save(rf'{THIS_FOLDER}\..\output\{name}.pdf')

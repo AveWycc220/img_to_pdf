@@ -19,4 +19,4 @@ class ImgToPDF:
             rect = fitz.Rect(0, 0, 2480, 3508)
             img = fitz.Pixmap(rf'{THIS_FOLDER}\..\img\{images[i]}')
             page.insertImage(rect, pixmap=img, keep_proportion=False)
-        pdf.save(rf'{THIS_FOLDER}\..\output\{name}.pdf')
+        pdf.save(rf'{THIS_FOLDER}\..\output\{name}.pdf', garbage=4, deflate=1)
